@@ -1,0 +1,5 @@
+FROM node:16.11.0
+
+WORKDIR /src
+
+EXPOSE 3000
