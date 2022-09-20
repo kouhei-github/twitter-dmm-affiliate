@@ -90,5 +90,14 @@ func SearchTagAndAutoFollowHandler(c *gin.Context) {
 		c.JSON(500, "検索に失敗しました")
 		return
 	}
+
+	for _, tweetIncludeUser := range tweet.Data {
+		err := oauth.FollowTwitterUser(tweetIncludeUser.AuthorId)
+		if err != nil {
+			c.JSON(500, "フォローできませんでした")
+			return
+		}
+	}
+
 	c.JSON(200, tweet)
 }
