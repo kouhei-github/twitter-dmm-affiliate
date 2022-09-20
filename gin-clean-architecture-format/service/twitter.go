@@ -203,3 +203,47 @@ func (oauth OAuth1) PostTwitter(text string, attachments []string, tweetId strin
 	}
 	return tweet, nil
 }
+
+type TweetIncludeAuthor struct {
+	Id       string `json:"id"`
+	AuthorId string `json:"author_id"`
+	Text     string `json:"text"`
+}
+
+type TwitterSearch struct {
+	Data []TweetIncludeAuthor `json:"data"`
+}
+
+func (oauth OAuth1) SearchHashTagOnTwitter(searchText string, max int) (TwitterSearch, error) {
+	url := "https://api.twitter.com/2/tweets/search/recent?query=" + searchText + "&max_results=" + strconv.Itoa(max) + "&expansions=author_id"
+	method := http.MethodGet
+	oauth.BuildOAuth1Header(method, url, map[string]string{})
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, nil)
+
+	if err != nil {
+		fmt.Println(err)
+		return TwitterSearch{}, err
+	}
+	req.Header.Add("Authorization", "Bearer "+oauth.BearerToken)
+	req.Header.Add("accept", "application/json")
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return TwitterSearch{}, err
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return TwitterSearch{}, err
+	}
+	fmt.Println(string(body))
+	var tweet TwitterSearch
+	err = json.Unmarshal(body, &tweet)
+	if err != nil {
+		return TwitterSearch{}, err
+	}
+	return tweet, nil
+}

@@ -5,7 +5,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"kouhei-github/sample-gin/repository"
 	"kouhei-github/sample-gin/service"
+	"net/url"
 	"os"
+	"strings"
 )
 
 func InsertTwitterAutoFollowHandler(ctx *gin.Context) {
@@ -78,5 +80,15 @@ func PostMediaIdHandoler(ctx *gin.Context) {
 }
 
 func SearchTagAndAutoFollowHandler(c *gin.Context) {
-	c.JSON(200, "success")
+	search := c.Query("search")
+	search = strings.ReplaceAll(search, ",", " #")
+	search = "#" + search
+	search = url.QueryEscape(search)
+	oauth := service.NewTOAuth1()
+	tweet, err := oauth.SearchHashTagOnTwitter(search, 15)
+	if err != nil {
+		c.JSON(500, "検索に失敗しました")
+		return
+	}
+	c.JSON(200, tweet)
 }
