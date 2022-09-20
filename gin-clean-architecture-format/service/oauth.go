@@ -17,6 +17,7 @@ type OAuth1 struct {
 	ConsumerSecret string
 	AccessToken    string
 	AccessSecret   string
+	BearerToken    string
 }
 
 func NewTOAuth1() *OAuth1 {
@@ -26,6 +27,7 @@ func NewTOAuth1() *OAuth1 {
 		ConsumerSecret: conf.ConsumerSecret,
 		AccessToken:    conf.AccessToken,
 		AccessSecret:   conf.TokenSecret,
+		BearerToken:    conf.BearerToken,
 	}
 }
 

@@ -61,6 +61,17 @@ func (entity *AutoFolowingEntity) Create() error {
 	return nil
 }
 
+func BulkInsertAutoFollowing(autoFolow []AutoFolowingEntity) error {
+	result := db.Create(&autoFolow)
+	if result.Error != nil {
+		myErr := service.MyError{
+			Message: result.Error.Error(),
+		}
+		return myErr
+	}
+	return nil
+}
+
 func FindByTwitterUserId(userId string) ([]AutoFolowingEntity, error) {
 	var entity []AutoFolowingEntity
 	result := db.Where("twitter_user_id = ?", userId).First(&entity)

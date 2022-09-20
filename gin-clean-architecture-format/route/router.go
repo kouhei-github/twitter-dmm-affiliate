@@ -19,5 +19,6 @@ func GetRouter() *gin.Engine {
 	r.POST("/api/v1/twitter", controller.InsertTwitterAutoFollowHandler)
 	r.GET("/api/v1/twitter", controller.FinfUseridTwitterAutoFollowHandler)
 	r.POST("/api/v1/media-id", controller.PostMediaIdHandoler)
+	r.GET("/api/v1/search-twitter", controller.SearchTagAndAutoFollowHandler)
 	return r
 }

@@ -17,6 +17,7 @@ type ConfigList struct {
 	ConsumerSecret string
 	AccessToken    string
 	TokenSecret    string
+	BearerToken    string
 }
 
 var Config ConfigList
@@ -39,5 +40,6 @@ func init() {
 		ConsumerSecret: cfg.Section("Twitter").Key("consumerSecret").String(),
 		AccessToken:    cfg.Section("Twitter").Key("accessToken").String(),
 		TokenSecret:    cfg.Section("Twitter").Key("tokenSecret").String(),
+		BearerToken:    cfg.Section("Twitter").Key("bearerToken").String(),
 	}
 }

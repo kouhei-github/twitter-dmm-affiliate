@@ -13,3 +13,4 @@ consumerKey = consumerKey
 consumerSecret = consumerSecret
 accessToken = accessToken
 tokenSecret = tokenSecret
+bearerToken = bearerToken

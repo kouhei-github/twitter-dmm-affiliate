@@ -203,3 +203,88 @@ func (oauth OAuth1) PostTwitter(text string, attachments []string, tweetId strin
 	}
 	return tweet, nil
 }
+
+type TweetIncludeAuthor struct {
+	Id       string `json:"id"`
+	AuthorId string `json:"author_id"`
+	Text     string `json:"text"`
+}
+
+type TwitterSearch struct {
+	Data []TweetIncludeAuthor `json:"data"`
+}
+
+func (oauth OAuth1) SearchHashTagOnTwitter(searchText string, max int) (TwitterSearch, error) {
+	url := "https://api.twitter.com/2/tweets/search/recent?query=" + searchText + "&max_results=" + strconv.Itoa(max) + "&expansions=author_id"
+	method := http.MethodGet
+	oauth.BuildOAuth1Header(method, url, map[string]string{})
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, nil)
+
+	if err != nil {
+		fmt.Println(err)
+		return TwitterSearch{}, err
+	}
+	req.Header.Add("Authorization", "Bearer "+oauth.BearerToken)
+	req.Header.Add("accept", "application/json")
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return TwitterSearch{}, err
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return TwitterSearch{}, err
+	}
+	fmt.Println(string(body))
+	var tweet TwitterSearch
+	err = json.Unmarshal(body, &tweet)
+	if err != nil {
+		return TwitterSearch{}, err
+	}
+	return tweet, nil
+}
+
+type FollowUser struct {
+	TargetUserId string `json:"target_user_id"`
+}
+
+func (oauth OAuth1) FollowTwitterUser(userId string) error {
+	url := "https://api.twitter.com/2/users/1571053179319775233/following"
+	method := "POST"
+	authHeader := oauth.BuildOAuth1Header(method, url, map[string]string{})
+	user := FollowUser{TargetUserId: userId}
+	jsonValue, err := json.Marshal(&user)
+	if err != nil {
+		myError := MyError{Message: "Jsonに変換できませんでした"}
+		return myError
+	}
+	payload := strings.NewReader(string(jsonValue))
+
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, payload)
+
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	req.Header.Add("Authorization", authHeader)
+	req.Header.Set("Content-Type", "application/json")
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	defer res.Body.Close()
+
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	fmt.Println(string(body))
+	return nil
+}
