@@ -123,3 +123,7 @@ func SearchTagAndAutoFollowHandler(c *gin.Context) {
 	}
 	c.JSON(200, tweet)
 }
+
+func CreateReportOnIncreasingRateFromBefore(c *gin.Context) {
+	c.JSON(200, "レポートです")
+}
