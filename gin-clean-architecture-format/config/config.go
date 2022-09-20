@@ -7,12 +7,16 @@ import (
 )
 
 type ConfigList struct {
-	DbHost     string
-	DbPort     string
-	DbUser     string
-	DbPassword string
-	DbName     string
-	SpreadID   string
+	DbHost         string
+	DbPort         string
+	DbUser         string
+	DbPassword     string
+	DbName         string
+	SpreadID       string
+	ConsumerKey    string
+	ConsumerSecret string
+	AccessToken    string
+	TokenSecret    string
 }
 
 var Config ConfigList
@@ -25,11 +29,15 @@ func init() {
 	}
 
 	Config = ConfigList{
-		DbHost:     cfg.Section("db").Key("host").String(),
-		DbPort:     cfg.Section("db").Key("port").String(),
-		DbUser:     cfg.Section("db").Key("user").String(),
-		DbPassword: cfg.Section("db").Key("password").String(),
-		DbName:     cfg.Section("db").Key("name").String(),
-		SpreadID:   cfg.Section("spreadsheet").Key("spreadsheetID").String(),
+		DbHost:         cfg.Section("db").Key("host").String(),
+		DbPort:         cfg.Section("db").Key("port").String(),
+		DbUser:         cfg.Section("db").Key("user").String(),
+		DbPassword:     cfg.Section("db").Key("password").String(),
+		DbName:         cfg.Section("db").Key("name").String(),
+		SpreadID:       cfg.Section("spreadsheet").Key("spreadsheetID").String(),
+		ConsumerKey:    cfg.Section("Twitter").Key("consumerKey").String(),
+		ConsumerSecret: cfg.Section("Twitter").Key("consumerSecret").String(),
+		AccessToken:    cfg.Section("Twitter").Key("accessToken").String(),
+		TokenSecret:    cfg.Section("Twitter").Key("tokenSecret").String(),
 	}
 }

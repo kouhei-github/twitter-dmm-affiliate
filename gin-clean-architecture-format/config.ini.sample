@@ -7,3 +7,9 @@ name = twitter-dmm-affiliate
 
 [spreadsheet]
 spreadsheetID = 1-99
+
+[Twitter]
+consumerKey = consumerKey
+consumerSecret = consumerSecret
+accessToken = accessToken
+tokenSecret = tokenSecret

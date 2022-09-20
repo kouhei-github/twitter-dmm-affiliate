@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="25ed377c-c4f3-414d-b7ed-9d6a1aa5555a" name="Changes" comment="1. 自動出品ができるエンドポイントを作成した。&#10;2. UseCaseとサービスにロジックを切り分けた。">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/mercari-app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gin-clean-architecture-format/public/meru-love.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gin-clean-architecture-format/public/test.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gin-clean-architecture-format/service/oauth.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gin-clean-architecture-format/service/twitter.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-clean-architecture-format/config.ini.sample" beforeDir="false" afterPath="$PROJECT_DIR$/gin-clean-architecture-format/config.ini.sample" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-clean-architecture-format/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/gin-clean-architecture-format/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-clean-architecture-format/controller/twitter_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/gin-clean-architecture-format/controller/twitter_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-clean-architecture-format/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/gin-clean-architecture-format/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-clean-architecture-format/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/gin-clean-architecture-format/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gin-clean-architecture-format/route/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/gin-clean-architecture-format/route/router.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,7 +58,7 @@
     "configurable.GoLibrariesConfigurable.is.expanded": "true",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/nagamatsu-ko/docker/golang/twitter-dmm-affiliate",
+    "last_opened_file_path": "/Users/nagamatsu-ko/docker/golang/twitter-dmm-affiliate/gin-clean-architecture-format/public",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -62,7 +70,12 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gin-clean-architecture-format/public" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/gin-clean-architecture-format/public" />
+      <recent name="$PROJECT_DIR$/gin-clean-architecture-format" />
       <recent name="$PROJECT_DIR$/nuxt-dashboard" />
     </key>
   </component>
