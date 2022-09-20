@@ -76,3 +76,7 @@ func PostMediaIdHandoler(ctx *gin.Context) {
 	}
 	ctx.JSON(200, "成功しました")
 }
+
+func SearchTagAndAutoFollowHandler(c *gin.Context) {
+	c.JSON(200, "success")
+}
