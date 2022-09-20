@@ -1,12 +1,10 @@
 package repository
 
 import (
-	"github.com/uniplaces/carbon"
+	"fmt"
 	"gorm.io/gorm"
 	"kouhei-github/sample-gin/service"
 	"strconv"
-	"strings"
-	"time"
 )
 
 type AutoFolowingEntity struct {
@@ -23,23 +21,9 @@ func NewAutoFolowingEntity(userId string, status int8, expireAt string) (*AutoFo
 		myError := service.MyError{Message: "Statusの値が正しくないです。"}
 		return &AutoFolowingEntity{}, myError
 	}
-	splits := strings.Split(expireAt, "-")
-	year, err := strconv.Atoi(splits[0])
-	if err != nil {
-		myError := service.MyError{Message: "yearを数値に変換できませんでした。"}
-		return &AutoFolowingEntity{}, myError
-	}
-	month, err := strconv.Atoi(splits[1])
-	if err != nil {
-		myError := service.MyError{Message: "monthを数値に変換できませんでした。"}
-		return &AutoFolowingEntity{}, myError
-	}
-	date, err := strconv.Atoi(splits[2])
-	if err != nil {
-		myError := service.MyError{Message: "dateを数値に変換できませんでした。"}
-		return &AutoFolowingEntity{}, myError
-	}
-	carbonDate, err := carbon.CreateFromDate(year, time.Month(month), date, "Asia/Tokyo")
+
+	carbonDate, err := service.GetCarbonDate(expireAt)
+
 	if err != nil {
 		myError := service.MyError{Message: "carbonに変換できませんでした。"}
 		return &AutoFolowingEntity{}, myError
@@ -62,6 +46,7 @@ func (entity *AutoFolowingEntity) Create() error {
 }
 
 func BulkInsertAutoFollowing(autoFolow []AutoFolowingEntity) error {
+	fmt.Println(autoFolow)
 	result := db.Create(&autoFolow)
 	if result.Error != nil {
 		myErr := service.MyError{
@@ -80,4 +65,25 @@ func FindByTwitterUserId(userId string) ([]AutoFolowingEntity, error) {
 		return []AutoFolowingEntity{}, err
 	}
 	return entity, nil
+}
+
+func FindByLastRecord() (AutoFolowingEntity, error) {
+	var entity AutoFolowingEntity
+	result := db.Last(&entity)
+	if result.Error != nil {
+		myErr := service.MyError{Message: result.Error.Error()}
+		return AutoFolowingEntity{}, myErr
+	}
+	return entity, nil
+}
+
+func FindByExpireDate(expireDate string) ([]AutoFolowingEntity, error) {
+	var entities []AutoFolowingEntity
+	autoEntity := AutoFolowingEntity{ExpireDate: expireDate}
+	result := db.Where(&autoEntity).Find(&entities)
+	if result.Error != nil {
+		myErr := service.MyError{Message: result.Error.Error()}
+		return []AutoFolowingEntity{}, myErr
+	}
+	return entities, nil
 }
