@@ -18,5 +18,6 @@ func GetRouter() *gin.Engine {
 	// TwitterのフォローしたユーザーIDと期間の保存
 	r.POST("/api/v1/twitter", controller.InsertTwitterAutoFollowHandler)
 	r.GET("/api/v1/twitter", controller.FinfUseridTwitterAutoFollowHandler)
+	r.POST("/api/v1/media-id", controller.PostMediaIdHandoler)
 	return r
 }

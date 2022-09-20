@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"kouhei-github/sample-gin/repository"
 	"kouhei-github/sample-gin/service"
+	"os"
 )
 
 func InsertTwitterAutoFollowHandler(ctx *gin.Context) {
@@ -49,4 +50,29 @@ func FinfUseridTwitterAutoFollowHandler(ctx *gin.Context) {
 		ctx.JSON(500, err.Error())
 	}
 	ctx.JSON(200, found)
+}
+
+func PostMediaIdHandoler(ctx *gin.Context) {
+	oauth := service.NewTOAuth1()
+	dir, err := os.Getwd()
+	if err != nil {
+		ctx.JSON(500, "Imageのパスの取得に失敗しました.")
+		return
+	}
+	files, err := os.ReadDir(dir + "/public")
+	var images []*service.ImageIdRequest
+	for _, file := range files {
+		image, err := oauth.GetMediaId(dir + "/public/" + file.Name())
+		if err != nil {
+			ctx.JSON(500, err.Error())
+			return
+		}
+		images = append(images, image)
+	}
+	imageRequests := service.SeparateArray(2, images)
+	err = oauth.PostToTwitterWithAttachment(imageRequests)
+	if err != nil {
+		ctx.JSON(500, err.Error())
+	}
+	ctx.JSON(200, "成功しました")
 }
